@@ -2,6 +2,6 @@
 
 Instructions
 
-1. docker-compose build
-2. docker-compose up -d
-3. http://localhost:8090/
+1. make build
+2. make start
+3. Open on your browser: http://localhost:8090/
