@@ -1,4 +1,4 @@
-start:
+build:
 	docker-compose build
 
 start:
