@@ -1,0 +1,16 @@
+parameters:
+    level: 8
+    inferPrivatePropertyTypeFromConstructor: true
+    reportUnmatchedIgnoredErrors: false
+    checkMissingIterableValueType: false
+    checkGenericClassInNonGenericObjectType: false
+    paths:
+        - %currentWorkingDirectory%
+    autoload_directories:
+        - %currentWorkingDirectory%/src
+    excludes_analyse:
+        - %currentWorkingDirectory%/vendor
+    ignoreErrors:
+        - '#Using \$this outside a class.#'
+        - '#GuzzleHttp\\Exception\\GuzzleException is not subtype of Throwable#'
+        - '#Call to method [a-zA-Z0-9\\_]+\(\) on an unknown class Concrete\\Attribute\\Select\\Controller#'

@@ -1,0 +1,31 @@
+version: '3.5'
+
+services:
+  web:
+    build:
+      context: '.'
+      args:
+        uid: ${UID}
+    container_name: ${DOCKER_NAME}_app
+    environment:
+      - APACHE_RUN_USER=#${UID}
+      - APACHE_RUN_GROUP=#${UID}
+    volumes:
+      - ./app:/var/www/html
+      - ./docker/apache2/sites-available:/etc/apache2/sites-available:delegated
+      - ./docker/php/php.ini:/usr/local/etc/php/php.ini:delegated
+    ports:
+      - 8090:80
+
+  mysql-db:
+    image: mariadb:10
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=app
+      - MYSQL_USER=app
+      - MYSQL_PASSWORD=app
+    ports:
+      - '3310:3306'
+    volumes:
+      - ./docker/mariadb/data:/var/lib/postgresql/data
+    container_name: ${DOCKER_NAME}_db

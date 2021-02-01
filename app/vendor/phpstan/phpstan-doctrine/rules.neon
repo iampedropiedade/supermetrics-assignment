@@ -1,0 +1,35 @@
+parameters:
+	doctrine:
+		reportDynamicQueryBuilders: false
+		reportUnknownTypes: false
+
+parametersSchema:
+	doctrine: structure([
+		repositoryClass: schema(string(), nullable())
+		queryBuilderClass: schema(string(), nullable())
+		allCollectionsSelectable: bool()
+		objectManagerLoader: schema(string(), nullable())
+		searchOtherMethodsForQueryBuilderBeginning: bool()
+		queryBuilderFastAlgorithm: bool()
+		reportDynamicQueryBuilders: bool()
+		reportUnknownTypes: bool()
+	])
+
+rules:
+	- PHPStan\Rules\Doctrine\ORM\DqlRule
+	- PHPStan\Rules\Doctrine\ORM\RepositoryMethodCallRule
+	- PHPStan\Rules\Doctrine\ORM\EntityRelationRule
+
+services:
+	-
+		class: PHPStan\Rules\Doctrine\ORM\QueryBuilderDqlRule
+		arguments:
+			reportDynamicQueryBuilders: %doctrine.reportDynamicQueryBuilders%
+		tags:
+			- phpstan.rules.rule
+	-
+		class: PHPStan\Rules\Doctrine\ORM\EntityColumnRule
+		arguments:
+			reportUnknownTypes: %doctrine.reportUnknownTypes%
+		tags:
+			- phpstan.rules.rule
